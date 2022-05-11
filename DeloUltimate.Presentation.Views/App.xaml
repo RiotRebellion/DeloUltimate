@@ -1,0 +1,22 @@
+﻿<Application x:Class="DeloUltimate.Presentation.Views.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:DeloUltimate.Presentation.Views"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <local:ViewModelLocator x:Key="ViewModelLocator"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/Buttons/MenuButtonTheme.xaml"/>
+                <ResourceDictionary Source="Themes/XamlImage.xaml"/>
+                <ResourceDictionary Source="Themes/HomeTextBlockTheme.xaml"/>
+                <ResourceDictionary Source="Themes/Buttons/CloseButtonTheme.xaml"/>
+                <ResourceDictionary Source="Themes/Buttons/ExpandCollapseButtonTheme.xaml"/>
+                <ResourceDictionary Source="Themes/Buttons/HideButtonTheme.xaml"/>
+                <ResourceDictionary Source="Themes/Buttons/ToolButtonTheme.xaml"/>
+                <ResourceDictionary Source="Themes/Common/TextBlockTheme.xaml"/>
+                <ResourceDictionary Source="Themes/Common/DataGridTheme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,165 @@
+﻿<Window x:Class="DeloUltimate.Presentation.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DeloUltimate.Presentation.Views"
+        xmlns:cmd="clr-namespace:DeloUltimate.Presentation.ViewModels.Commands;assembly=DeloUltimate.Presentation.ViewModels"   
+        xmlns:pages="clr-namespace:DeloUltimate.Presentation.Views.Pages"
+        xmlns:viewmodels="clr-namespace:DeloUltimate.Presentation.ViewModels;assembly=DeloUltimate.Presentation.ViewModels"
+        DataContext="{Binding MainWindowViewModel, Source={StaticResource ViewModelLocator}}"
+        mc:Ignorable="d"
+        Title="MainWindow" 
+        MinHeight="480" MinWidth="720"
+        MaxHeight="{x:Static SystemParameters.MaximizedPrimaryScreenHeight}"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True">
+    <WindowChrome.WindowChrome>
+        <WindowChrome 
+        CaptionHeight="0"
+        ResizeBorderThickness="5" />
+    </WindowChrome.WindowChrome>
+    <Border 
+        Background="#1c212b"
+        CornerRadius="20">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200pt"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="75"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Border
+                Background="#13161c"
+                CornerRadius="20"
+                Grid.ColumnSpan="2">
+                <Grid MouseLeftButtonDown="Grid_OnMouseLeftButtonDown"
+                      MouseMove="Grid_OnMouseMove"
+                      MouseLeftButtonUp="Grid_OnMouseLeftButtonUp">
+                    <TextBlock 
+                        Margin="20,5"
+                        Foreground="White"       
+                        FontSize="16">
+                        Выгрузка СЭД
+                    </TextBlock>
+                    <StackPanel
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        Margin="0,0,20,0">
+                        <Button Style="{DynamicResource HideButton}">
+                            <Button.Command>
+                                <cmd:HideApplicationCommand/>
+                            </Button.Command>
+                        </Button>
+                        <Button Style="{DynamicResource ExpandCollapseButton}">
+                            <Button.Command>
+                                <cmd:ExpandApplicationCommand/>
+                            </Button.Command>
+                        </Button>
+                        <Button Style="{DynamicResource CloseButton}">
+                            <Button.Command>
+                                <cmd:CloseApplicationCommand/>
+                            </Button.Command>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Right"
+                Grid.Row="1"
+                Margin="0 20 10 0">
+                <ContentControl 
+                    Style="{StaticResource XamlImage}"
+                    Margin="0 10 20 0"
+                    HorizontalAlignment="Left"/>
+                <StackPanel>
+                    <TextBlock
+                        Text="СЭД ДЕЛО"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Foreground="White"
+                        FontStyle="Italic"
+                        FontSize="22"
+                        Margin="0,10,50,0"/>
+                    <TextBlock 
+                        Text="Выгрузка из баз"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Foreground="White"
+                        FontStyle="Italic"
+                        FontSize="12"
+                        Margin="0,0,35,0"/>
+                </StackPanel>
+            </StackPanel>
+            <!--Logo-->
+            <StackPanel 
+                Margin="0,50,0,0"
+                Grid.Row="2">
+                <RadioButton
+                    Content="Выгрузка из базы 1С"
+                    Height="50"
+                    Foreground="White"
+                    Style="{DynamicResource MenuButtonTheme}"
+                    Command="{Binding ShowEmployeeChangesView}"/>
+                <RadioButton 
+                    Content="Прикрепление к кабинету"
+                    Height="50"
+                    Foreground="White"
+                    Style="{DynamicResource MenuButtonTheme}"
+                    Command="{Binding ShowCabinetAttachmentsView}"/>
+                <RadioButton 
+                    Content="Наличие учетной записи"
+                    Height="50"
+                    Foreground="White"
+                    Style="{DynamicResource MenuButtonTheme}"
+                    Command="{Binding ShowAccountAttachmentsView}"/>
+                <RadioButton 
+                    Content="Удаленные ДЛ"
+                    Height="50"
+                    Foreground="White"
+                    Style="{DynamicResource MenuButtonTheme}"
+                    Command="{Binding ShowDeletedPersonView}"/>
+                <RadioButton 
+                    Content="Активность пользователей"
+                    Height="50"
+                    Foreground="White"
+                    Style="{DynamicResource MenuButtonTheme}"
+                    Command="{Binding ShowAccountActivitiesView}"/>
+            </StackPanel>
+            <!--MenuButtonPanel-->
+            <ContentControl
+                Grid.RowSpan="2"
+                Grid.Row="1"
+                Grid.Column="1"
+                Content="{Binding CurrentViewModel}">
+                <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
+                        <pages:HomePage/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:EmployeeChangesViewModel}">
+                        <pages:EmployeeChangesPage/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:CabinetAttachmentViewModel}">
+                        <pages:CabinetAttachmentPage/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:AccountAttachmentViewModel}">
+                        <pages:AccountAttachmentPage/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:AccountActivityViewModel}">
+                        <pages:AccountActivityPage/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:InvalidPersonViewModel}">
+                        <pages:InvalidPersonPage/>
+                    </DataTemplate>
+                </ContentControl.Resources>
+                <!--NavigationPages-->
+            </ContentControl>
+        </Grid>
+    </Border>
+</Window>
