@@ -10,7 +10,8 @@ namespace DeloUltimate.Eos.AppServices
     {
         public static IServiceCollection AddServices(this IServiceCollection services) => services
             .AddImportServices()
-            .AddExportServices();
+            .AddExportServices()
+            .AddCompareServices();
 
         private static IServiceCollection AddImportServices(this IServiceCollection services) => services
             .AddScoped<IDataImportService<Account>, DataImportService<Account>>()

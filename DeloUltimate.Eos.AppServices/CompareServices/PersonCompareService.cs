@@ -7,22 +7,22 @@ namespace DeloUltimate.Eos.AppServices.CompareServices
 {
     public class PersonCompareService : ICompareService<Employee>
     {
-        public IEnumerable<Employee> GetDifference(IEnumerable<Employee> prevCollection, IEnumerable<Employee> nextCollection)
+        public IEnumerable<Employee> GetCollectionsDifference(IEnumerable<Employee> prevCollection, IEnumerable<Employee> nextCollection)
         {
             IEnumerable<Employee> temp;
             IEnumerable<Employee> result = new List<Employee>();
 
             //Добавляем новых
             temp = nextCollection.Except(prevCollection).ToList();
-            result.Concat(temp);
+            result = result.Union(temp);
 
-            //Добавляем удаленных
+            //Добавляем удаленных и помечаем их
             temp = prevCollection.Except(nextCollection).ToList();
-
             foreach (var item in temp) item.Status = 1;
 
-            return result.Concat(temp);
-            
+            result = result.Union(temp);
+
+            return result;
         }
     }
 }

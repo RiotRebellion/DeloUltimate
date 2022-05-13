@@ -5,6 +5,7 @@ using DeloUltimate.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 
 namespace DeloUltimate.Presentation.ViewModels
@@ -15,24 +16,28 @@ namespace DeloUltimate.Presentation.ViewModels
 
         private readonly IDataImportService<Employee> _importService;
         private readonly IDataExportService<Employee> _exportService;
+        private readonly ICompareService<Employee> _compareService;
 
-        private IEnumerable<Employee> _nextEmployeeCollection;
-        private IEnumerable<Employee> _prevEmployeeCollection;
+        private IEnumerable<Employee> _nextEmployeeCollection = new List<Employee>();
+        private IEnumerable<Employee> _prevEmployeeCollection = new List<Employee>();
 
         #endregion
 
         public EmployeeChangesViewModel(IDataImportService<Employee> importService,
-                                        IDataExportService<Employee> exportService)
+                                        IDataExportService<Employee> exportService,
+                                        ICompareService<Employee> compareService)
         {
             _importService = importService;
             _exportService = exportService;
+            _compareService = compareService;
 
             #region Registration
 
             #region Commands
 
             FetchEmployees = new RelayCommand(OnFetchEmployeesExecuted, CanFetchEmployeesExecute);
-            UploadOldDataFile = new RelayCommand(OnUploadOldDataFileExecuted, CanUploadOldDataFileExecute);
+            UploadPrevDataFile = new RelayCommand(OnUploadPrevDataFileExecuted, CanUploadPrevDataFileExecute);
+            UploadNextDataFile = new RelayCommand(OnUploadNextDataFileExecuted, CanUploadNextDataFileExecute);
             #endregion
 
             #endregion
@@ -88,6 +93,18 @@ namespace DeloUltimate.Presentation.ViewModels
 
         #endregion
 
+        #region IsDataUploaded
+
+        private bool _isDataUploaded = false;
+
+        public bool IsDataUploaded
+        {
+            get => _isDataUploaded;
+            set => Set(ref _isDataUploaded, value);
+        }
+
+        #endregion
+
         #region EmployeeCollection
 
         private ObservableCollection<Employee> _employeeCollection;
@@ -102,24 +119,24 @@ namespace DeloUltimate.Presentation.ViewModels
 
         #region NextDataTime
 
-        private string _nextDateTime;
+        private string _nextDataTime;
 
-        public string NextDateTime
+        public string NextDataTime
         {
-            get => _nextDateTime;
-            set => Set(ref _nextDateTime, value);
+            get => _nextDataTime;
+            set => Set(ref _nextDataTime, value);
         }
 
         #endregion
 
         #region PrevDataTime
 
-        private string _prevDateTime;
+        private string _prevDataTime;
 
-        public string PrevDateTime
+        public string PrevDataTime
         {
-            get => _prevDateTime;
-            set => Set(ref _prevDateTime, value);
+            get => _prevDataTime;
+            set => Set(ref _prevDataTime, value);
         }
 
         #endregion
@@ -136,27 +153,71 @@ namespace DeloUltimate.Presentation.ViewModels
 
         private void OnFetchEmployeesExecuted(object p)
         {
-            PrevDateTime = DateTime.Now.ToString("yyyy-MM-dd");
-            _prevEmployeeCollection = _importService.ImportFromDatabase();
-            _exportService.ExportToXML(_prevEmployeeCollection);
-            EmployeeCollection = new ObservableCollection<Employee>(_prevEmployeeCollection);
+            _prevEmployeeCollection = _importService?.ImportFromDatabase();
+            if(_prevEmployeeCollection.Any()) 
+            {
+                PrevDataTime = DateTime.Now.ToString("yyyy.MM.dd");
+                IsDataUploaded = true;
+                _exportService.ExportToXML(_prevEmployeeCollection);
+                EmployeeCollection = new ObservableCollection<Employee>(_prevEmployeeCollection);
+            }
         }
 
         #endregion
 
-        #region UploadOldDataFile
+        #region UploadPrevDataFile
 
-        public ICommand UploadOldDataFile { get; private set; }
+        public ICommand UploadPrevDataFile { get; private set; }
 
-        private bool CanUploadOldDataFileExecute(object p) => true;
+        private bool CanUploadPrevDataFileExecute(object p) => true;
 
-        private void OnUploadOldDataFileExecuted(object p)
+        private void OnUploadPrevDataFileExecuted(object p)
         {
-            _prevEmployeeCollection = _importService.ImportFromXML(ref _prevDateTime);
-            if (_prevEmployeeCollection == null) return;
-            
-
+            string tempTime = "";
+            _prevEmployeeCollection = _importService?.ImportFromXML(ref tempTime);
+            if (_prevEmployeeCollection.Any())
+            {
+                IsDataUploaded = true;
+                NextDataTime = tempTime;
+                ExecuteComparing();
+            }
         }
+
+        #endregion
+
+        #region UploadNextDataFile
+
+        public ICommand UploadNextDataFile { get; private set; }
+
+        private bool CanUploadNextDataFileExecute(object p) => IsDataUploaded;
+
+        private void OnUploadNextDataFileExecuted(object p)
+        {
+            string tempTime = "";
+            _nextEmployeeCollection = _importService?.ImportFromXML(ref tempTime);
+            if (_nextEmployeeCollection.Any()) 
+            { 
+                NextDataTime = tempTime;
+                ExecuteComparing();
+            }
+        }
+        #endregion
+
+        #endregion
+
+        #region Methods
+
+        #region ExecuteComparing
+
+        public void ExecuteComparing()
+        {
+            if (_prevEmployeeCollection.Any() && _nextEmployeeCollection.Any())
+            {
+                var tempCollection = _compareService.GetCollectionsDifference(_prevEmployeeCollection, _nextEmployeeCollection);
+                EmployeeCollection = new ObservableCollection<Employee>(tempCollection);
+            }
+        }
+
         #endregion
 
         #endregion

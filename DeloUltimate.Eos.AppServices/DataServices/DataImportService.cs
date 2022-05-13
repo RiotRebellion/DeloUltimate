@@ -1,6 +1,8 @@
 ﻿using DeloUltimate.Domain.Entities.Base;
 using DeloUltimate.Services.Interfaces;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml.Serialization;
@@ -45,7 +47,7 @@ namespace DeloUltimate.Eos.AppServices.DataServices
                 }
                 else
                 {
-                    return null;
+                    return new Collection<TEntity>();
                 }
             }
         }

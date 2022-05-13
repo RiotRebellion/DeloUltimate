@@ -6,6 +6,6 @@ namespace DeloUltimate.Services.Interfaces
     public interface ICompareService<TEntity>
         where TEntity : class, IEntity
     {
-        IEnumerable<TEntity> GetDifference(IEnumerable<TEntity> prevCollection, IEnumerable<TEntity> nextCollection);
+        IEnumerable<TEntity> GetCollectionsDifference(IEnumerable<TEntity> prevCollection, IEnumerable<TEntity> nextCollection);
     }
 }

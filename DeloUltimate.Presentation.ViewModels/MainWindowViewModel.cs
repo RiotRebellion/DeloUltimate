@@ -43,6 +43,16 @@ namespace DeloUltimate.Presentation.ViewModels
 
         #region Properties
 
+        //TODO: Realise MiraConnectionState
+        #region MiraConnectionState
+
+        #endregion
+
+        //TODO: Realise MiraConnectionState
+        #region DeloConnectionState
+
+        #endregion
+
         #region CurrentViewModel
 
         private ViewModel _currentViewModel;
