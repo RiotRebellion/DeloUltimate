@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:model="clr-namespace:DeloUltimate.Domain.Entities;assembly=DeloUltimate.Domain.Entities"
              xmlns:local="clr-namespace:DeloUltimate.Presentation.Views.Pages"
              DataContext="{Binding EmployeeChangesViewModel, Source={StaticResource ViewModelLocator}}"
              mc:Ignorable="d"
@@ -38,7 +37,6 @@
         <Grid Grid.Row="1" 
               Margin="10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -78,21 +76,6 @@
                     Grid.Column="2"
                     Margin="10"
                     Command="{Binding UploadNextDataFile}"/>
-            <GroupBox Header="Фильтры:"
-                      Grid.Column="3"
-                      Grid.RowSpan="2">
-                <StackPanel Margin="5">
-                    <RadioButton Margin="0,1,0,1" 
-                                 Content="Все"
-                                 IsChecked="{Binding IsDisplayingAll}"/>
-                    <RadioButton Margin="0,1,0,1" 
-                                 Content="Новые"
-                                 IsChecked="{Binding IsDisplayingNew}"/>
-                    <RadioButton Margin="0,1,0,1" 
-                                 Content="Удаленные"
-                                 IsChecked="{Binding IsDisplayingOld}"/>
-                </StackPanel>
-            </GroupBox>
         </Grid>
     </Grid>
 </UserControl>

@@ -320,10 +320,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DeloUltimate.Domain.Entities\DeloUltimate.Domain.Entities.csproj">
-      <Project>{f007bd8c-2afc-4cf4-a7c8-dd72e1f022f4}</Project>
-      <Name>DeloUltimate.Domain.Entities</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DeloUltimate.Eos.AppServices\DeloUltimate.Eos.AppServices.csproj">
       <Project>{d7b98c74-10a9-4926-b233-8c704301f7d6}</Project>
       <Name>DeloUltimate.Eos.AppServices</Name>

@@ -5,7 +5,9 @@ using DeloUltimate.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace DeloUltimate.Presentation.ViewModels
@@ -53,42 +55,6 @@ namespace DeloUltimate.Presentation.ViewModels
         {
             get => _dataGridHeaders;
             set => Set(ref _dataGridHeaders, value);
-        }
-
-        #endregion
-
-        #region IsDisplayingAll
-
-        private bool _isDisplayingAll;
-
-        public bool IsDisplayingAll
-        {
-            get => _isDisplayingAll;
-            set => Set(ref _isDisplayingAll, value);
-        }
-
-        #endregion
-
-        #region IsDisplayingNew
-
-        private bool _isDisplayingNew;
-
-        public bool IsDisplayingNew
-        {
-            get => _isDisplayingNew;
-            set => Set(ref _isDisplayingNew, value);
-        }
-
-        #endregion
-
-        #region IsDisplayingAll
-
-        private bool _isDisplayingOld;
-
-        public bool IsDisplayingOld
-        {
-            get => _isDisplayingOld;
-            set => Set(ref _isDisplayingOld, value);
         }
 
         #endregion
@@ -219,7 +185,7 @@ namespace DeloUltimate.Presentation.ViewModels
         }
 
         #endregion
-
+        
         #endregion
     }
 }
