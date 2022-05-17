@@ -10,6 +10,7 @@
         <Setter Property="CanUserResizeRows" Value="False"/>
         <Setter Property="CanUserDeleteRows" Value="False"/>
         <Setter Property="SelectionMode" Value="Extended"/>
+        <Setter Property="SelectionUnit" Value="Cell"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Foreground" Value="#302f2f"/>
         <Setter Property="FontWeight" Value="Bold"/>

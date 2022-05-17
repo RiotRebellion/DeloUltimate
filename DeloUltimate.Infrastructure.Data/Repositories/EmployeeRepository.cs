@@ -20,8 +20,9 @@ namespace DeloUltimate.Infrastructure.Data.Repositories
             "JOIN [c1department] ON [c1staff].departmentGUID = [c1department].id " +
             "WHERE [c1staff].deleted = 0 " +
             "and [c1staff].post not like '%Рецензент диплом%' " +
-			"and[c1staff].post not like '' " +
-			"and[c1staff].post not like '%ГПХ%' " +
+			"and [c1staff].post not like '' " +
+			"and [c1staff].post not like '%ГПХ%' " +
+            "and [c1staff].post not like '%Член ГЭК%' " +
             "ORDER BY Department, Name";
 
         public EmployeeRepository(IMiraDbContext dbContext)

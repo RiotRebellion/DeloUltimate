@@ -156,7 +156,7 @@ namespace DeloUltimate.Presentation.ViewModels
             _prevEmployeeCollection = _importService?.ImportFromDatabase();
             if(_prevEmployeeCollection.Any()) 
             {
-                PrevDataTime = DateTime.Now.ToString("yyyy.MM.dd");
+                NextDataTime = DateTime.Now.ToString("yyyy.MM.dd");
                 IsDataUploaded = true;
                 _exportService.ExportToXML(_prevEmployeeCollection);
                 EmployeeCollection = new ObservableCollection<Employee>(_prevEmployeeCollection);
@@ -178,7 +178,7 @@ namespace DeloUltimate.Presentation.ViewModels
             if (_prevEmployeeCollection.Any())
             {
                 IsDataUploaded = true;
-                NextDataTime = tempTime;
+                PrevDataTime = tempTime;
                 ExecuteComparing();
             }
         }
