@@ -13,12 +13,16 @@
             <RowDefinition Height="80pt"/>
         </Grid.RowDefinitions>
         <DataGrid ItemsSource="{Binding EmployeeCollection}"
-                  AutoGenerateColumns="False">
+                  AutoGenerateColumns="False"
+                  VirtualizingPanel.IsVirtualizing="True"
+                  VirtualizingStackPanel.VirtualizationMode="Recycling"
+                  VirtualizingPanel.IsContainerVirtualizable="True"
+                  VirtualizingPanel.ScrollUnit="Pixel">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}"/>
-                <DataGridTextColumn Header="ФИО" Binding="{Binding Path=Name}"/>
-                <DataGridTextColumn Header="Отдел" Binding="{Binding Path=Department}"/>
-                <DataGridTextColumn Header="Должность" Binding="{Binding Path=Post}"/>
+                <DataGridTextColumn Width="*" Header="Id" Binding="{Binding Path=Id}"/>
+                <DataGridTextColumn Width="*" Header="ФИО" Binding="{Binding Path=Name}"/>
+                <DataGridTextColumn Width="*" Header="Отдел" Binding="{Binding Path=Department}"/>
+                <DataGridTextColumn Width="*" Header="Должность" Binding="{Binding Path=Post}"/>
                 <DataGridTextColumn Binding="{Binding Path=Status}" Visibility="Hidden"/>
             </DataGrid.Columns>
             <DataGrid.RowStyle>

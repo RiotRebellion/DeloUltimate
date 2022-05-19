@@ -61,12 +61,12 @@ namespace DeloUltimate.Presentation.ViewModels
 
         #region IsDataUploaded
 
-        private bool _isDataUploaded = false;
+        private bool _isDataFetched = false;
 
-        public bool IsDataUploaded
+        public bool IsDataFetched
         {
-            get => _isDataUploaded;
-            set => Set(ref _isDataUploaded, value);
+            get => _isDataFetched;
+            set => Set(ref _isDataFetched, value);
         }
 
         #endregion
@@ -119,13 +119,13 @@ namespace DeloUltimate.Presentation.ViewModels
 
         private void OnFetchEmployeesExecuted(object p)
         {
-            _prevEmployeeCollection = _importService?.ImportFromDatabase();
-            if(_prevEmployeeCollection.Any()) 
+            _nextEmployeeCollection = _importService?.ImportFromDatabase();
+            if(_nextEmployeeCollection.Any()) 
             {
                 NextDataTime = DateTime.Now.ToString("yyyy.MM.dd");
-                IsDataUploaded = true;
-                _exportService.ExportToXML(_prevEmployeeCollection);
-                EmployeeCollection = new ObservableCollection<Employee>(_prevEmployeeCollection);
+                IsDataFetched = true;
+                _exportService.ExportToXML(_nextEmployeeCollection);
+                EmployeeCollection = new ObservableCollection<Employee>(_nextEmployeeCollection);
             }
         }
 
@@ -135,7 +135,7 @@ namespace DeloUltimate.Presentation.ViewModels
 
         public ICommand UploadPrevDataFile { get; private set; }
 
-        private bool CanUploadPrevDataFileExecute(object p) => true;
+        private bool CanUploadPrevDataFileExecute(object p) => IsDataFetched;
 
         private void OnUploadPrevDataFileExecuted(object p)
         {
@@ -143,7 +143,7 @@ namespace DeloUltimate.Presentation.ViewModels
             _prevEmployeeCollection = _importService?.ImportFromXML(ref tempTime);
             if (_prevEmployeeCollection.Any())
             {
-                IsDataUploaded = true;
+                IsDataFetched = true;
                 PrevDataTime = tempTime;
                 ExecuteComparing();
             }
@@ -155,7 +155,7 @@ namespace DeloUltimate.Presentation.ViewModels
 
         public ICommand UploadNextDataFile { get; private set; }
 
-        private bool CanUploadNextDataFileExecute(object p) => IsDataUploaded;
+        private bool CanUploadNextDataFileExecute(object p) => IsDataFetched;
 
         private void OnUploadNextDataFileExecuted(object p)
         {
