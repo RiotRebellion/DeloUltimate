@@ -54,10 +54,10 @@ namespace DeloUltimate.Infrastructure.Data.Repositories
                 var result = dataSet.Tables["Account"].AsEnumerable()
                     .Select(dataRow => new Account
                     {
-                        Department = dataRow.Field<string>("Department"),
-                        Cabinet = dataRow.Field<string>("Cabinet"),
-                        Username = dataRow.Field<string>("Username"),
-                        FolderAccess = dataRow.Field<string>("FolderAccess")
+                        Department = dataRow.Field<string>("Department") ?? "", 
+                        Cabinet = dataRow.Field<string>("Cabinet") ?? "",
+                        Username = dataRow.Field<string>("Username") ?? "",
+                        FolderAccess = dataRow.Field<string>("FolderAccess") ?? ""
                     }).ToList<Account>();
                 return result;
             }

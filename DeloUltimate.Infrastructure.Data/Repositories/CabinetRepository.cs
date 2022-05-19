@@ -58,11 +58,11 @@ namespace DeloUltimate.Infrastructure.Data.Repositories
                 var result = dataSet.Tables["Cabinet"].AsEnumerable()
                     .Select(dataRow => new Cabinet
                     {
-                        EmployeeName = dataRow.Field<string>("EmployeeName"),
-                        Department = dataRow.Field<string>("Department"),
-                        ParentDepartment = dataRow.Field<string>("ParentDepartment"),
-                        CabinetName = dataRow.Field<string>("CabinetName"),
-                        CabinetDepartment = dataRow.Field<string>("CabinetDepartment"),
+                        EmployeeName = dataRow.Field<string>("EmployeeName") ?? "",
+                        Department = dataRow.Field<string>("Department") ?? "",
+                        ParentDepartment = dataRow.Field<string>("ParentDepartment") ?? "",
+                        CabinetName = dataRow.Field<string>("CabinetName") ?? "",
+                        CabinetDepartment = dataRow.Field<string>("CabinetDepartment") ?? "",
                     }).ToList<Cabinet>();
                 return result;
             }
