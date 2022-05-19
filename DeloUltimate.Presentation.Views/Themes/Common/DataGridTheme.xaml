@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style TargetType="DataGrid">
-        <Setter Property="ColumnWidth" Value="*"/>
+        <Setter Property="ColumnWidth" Value="auto"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="RowHeight" Value="25"/>
         <Setter Property="FontSize" Value="18"/>
         <Setter Property="Background" Value="#363e4f"/>
@@ -9,14 +10,15 @@
         <Setter Property="BorderBrush" Value="#1c212b"/>
         <Setter Property="CanUserResizeRows" Value="False"/>
         <Setter Property="CanUserDeleteRows" Value="False"/>
+        <Setter Property="CanUserReorderColumns" Value="False"/>
         <Setter Property="SelectionMode" Value="Extended"/>
         <Setter Property="SelectionUnit" Value="Cell"/>
+        <Setter Property="IsReadOnly" Value="True"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Foreground" Value="#302f2f"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="ColumnHeaderStyle" Value="{DynamicResource CustomColumnHeader}">
-        </Setter>
+        <Setter Property="ColumnHeaderStyle" Value="{DynamicResource CustomColumnHeader}"/>
     </Style>
 
     <Style TargetType="DataGridColumnHeader" x:Key="CustomColumnHeader">
