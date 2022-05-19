@@ -8,8 +8,15 @@
              DataContext="{Binding InvalidPersonViewModel,Source={StaticResource ViewModelLocator}}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <DataGrid>
-
+        <DataGrid ItemsSource="{Binding InvalidPersonCollection}"
+                  AutoGenerateColumns="False"
+                  VirtualizingPanel.IsVirtualizing="True"
+                  VirtualizingStackPanel.VirtualizationMode="Recycling"
+                  VirtualizingPanel.IsContainerVirtualizable="True"
+                  VirtualizingPanel.ScrollUnit="Pixel">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="ФИО аккаунта" Binding="{Binding Path=Name}"/>
+            </DataGrid.Columns>
         </DataGrid>
     </Grid>
 </UserControl>
