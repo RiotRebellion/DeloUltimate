@@ -21,7 +21,8 @@ namespace DeloUltimate.Eos.AppServices
             .AddScoped<IDataImportService<InvalidPerson>, DataImportService<InvalidPerson>>();
 
         private static IServiceCollection AddExportServices(this IServiceCollection services) => services
-            .AddScoped<IDataExportService<Employee>, DataExportService<Employee>>();
+            .AddScoped<IDataExportService<Employee>, DataExportService<Employee>>()
+            .AddScoped<IDataExportService<AccountActivity>, DataExportService<AccountActivity>>();
 
         public static IServiceCollection AddCompareServices(this IServiceCollection services) => services
             .AddScoped<ICompareService<Employee>, PersonCompareService>();
