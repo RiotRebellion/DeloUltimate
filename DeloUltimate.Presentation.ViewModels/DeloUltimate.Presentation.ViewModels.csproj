@@ -76,6 +76,7 @@
     <Compile Include="HomeViewModel.cs" />
     <Compile Include="InvalidPersonViewModel.cs" />
     <Compile Include="MainWindowViewModel.cs" />
+    <Compile Include="Models\AccountFilterOptions.cs" />
     <Compile Include="Models\CabinetFilterOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
