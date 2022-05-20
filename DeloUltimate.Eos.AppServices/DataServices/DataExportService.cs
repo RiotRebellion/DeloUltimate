@@ -101,7 +101,7 @@ namespace DeloUltimate.Eos.AppServices.DataServices
             workbook.Close(false);
             excelApp.Quit();
 
-            MessageBox.Show($"Отчет сохранен на рабочий стол: {filePath}");
+            MessageBox.Show($"Следующий отчет сохранен на рабочий стол: {fileName}");
         }
 
         public void ExportToXML(IEnumerable<TEntity> entityCollection)

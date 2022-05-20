@@ -59,7 +59,7 @@ namespace DeloUltimate.Presentation.ViewModels
 
         #endregion
 
-        #region IsDataUploaded
+        #region IsDataFetched
 
         private bool _isDataFetched = false;
 
@@ -115,7 +115,7 @@ namespace DeloUltimate.Presentation.ViewModels
 
         public ICommand FetchEmployees { get; private set; }
 
-        private bool CanFetchEmployeesExecute(object p) => true;
+        private bool CanFetchEmployeesExecute(object p) => IsDataFetched == false;
 
         private void OnFetchEmployeesExecuted(object p)
         {
