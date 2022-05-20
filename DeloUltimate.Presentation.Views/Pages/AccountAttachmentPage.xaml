@@ -3,16 +3,63 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:cnvrt="clr-namespace:DeloUltimate.Presentation.ViewModels.Converters;assembly=DeloUltimate.Presentation.ViewModels"
              xmlns:local="clr-namespace:DeloUltimate.Presentation.Views.Pages"
              DataContext="{Binding AccountAttachmentViewModel, Source={StaticResource ViewModelLocator}}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <cnvrt:EnumToBoolConverter x:Key="EnumToBoolConverter"/>
+    </UserControl.Resources>
     <Grid>
-        <TextBlock 
-            Style="{StaticResource HomeTextBlock}"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center">
-            Прикрепленные аккаунты
-        </TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="80pt"/>
+        </Grid.RowDefinitions>
+        <DataGrid ItemsSource="{Binding AccountCollectionView}"
+                  AutoGenerateColumns="False"
+                  VirtualizingPanel.IsVirtualizing="True"
+                  VirtualizingStackPanel.VirtualizationMode="Recycling"
+                  VirtualizingPanel.IsContainerVirtualizable="True"
+                  VirtualizingPanel.ScrollUnit="Pixel">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="Отдел кабинета" Binding="{Binding Path=Department}"/>
+                <DataGridTextColumn Width="*" Header="Кабинет" Binding="{Binding Path=Cabinet}"/>
+                <DataGridTextColumn Width="*" Header="Имя пользователь" Binding="{Binding Path=Username}"/>
+                <DataGridTextColumn Width="*" Header="Доступ к папкам" Binding="{Binding Path=FolderAccess}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Style="{DynamicResource ToolButtonTheme}"
+                    Grid.Column="0"
+                    Margin="10"
+                    Content="Получить данные"
+                    Command="{Binding FetchData}"/>
+            <StackPanel Grid.Column="1"
+                        Margin="10"
+                        Visibility="{Binding IsDataFetched, Converter={StaticResource BoolToVisibilityConverter}}">
+                <Label Content="Значение поиска"/>
+                <TextBox Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+            <GroupBox Grid.Column="2"
+                      Margin="10"
+                      Header="Поле поиска"
+                      Visibility="{Binding IsDataFetched, Converter={StaticResource BoolToVisibilityConverter}}">
+                <StackPanel Margin="10">
+                    <RadioButton Content="Деловое лицо"
+                                 Margin="0,5,0,5"
+                                 IsChecked="{Binding AccountFilterOptions,
+                        Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Cabinet}"/>
+                    <RadioButton Content="Подразделение"
+                                 IsChecked="{Binding AccountFilterOptions,
+                        Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Username}"/>
+                </StackPanel>
+            </GroupBox>
+        </Grid>
     </Grid>
 </UserControl>
