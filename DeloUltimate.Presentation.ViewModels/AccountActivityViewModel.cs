@@ -24,6 +24,8 @@ namespace DeloUltimate.Presentation.ViewModels
             #region Commands
 
             FetchData = new RelayCommand(OnFetchDataExecuted, CanFetchDataExecute);
+            ExportToExcel = new RelayCommand(OnExportToExcelExecuted, CanExportToExcelExecute);
+
 
             #endregion
 
@@ -34,7 +36,7 @@ namespace DeloUltimate.Presentation.ViewModels
 
         #region AccountActivityCollection
 
-        private ObservableCollection<AccountActivity> _accountActivityCollection;
+        private ObservableCollection<AccountActivity> _accountActivityCollection = new ObservableCollection<AccountActivity>();
 
         public ObservableCollection<AccountActivity> AccountActivityCollection
         {
@@ -52,12 +54,22 @@ namespace DeloUltimate.Presentation.ViewModels
 
         public ICommand FetchData { get; private set; }
 
-        private bool CanFetchDataExecute(object p) => AccountActivityCollection is null;
+        private bool CanFetchDataExecute(object p) => AccountActivityCollection.Any() == false;
 
         private void OnFetchDataExecuted(object p)
         {
             AccountActivityCollection = new ObservableCollection<AccountActivity>(_dataImportService.ImportFromDatabase());
         }
+
+        #endregion
+
+        #region ExportToExcelCommand
+
+        public ICommand ExportToExcel { get; private set; }
+
+        private bool CanExportToExcelExecute(object p) => AccountActivityCollection.Any();
+
+        private void OnExportToExcelExecuted(object p) => _dataExportService.ExportToExcel(AccountActivityCollection);
 
         #endregion
 

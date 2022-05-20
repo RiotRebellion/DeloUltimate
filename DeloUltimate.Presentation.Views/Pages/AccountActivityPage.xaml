@@ -38,7 +38,8 @@
             <Button Style="{DynamicResource ToolButtonTheme}"
                     Grid.Column="1"
                     Margin="10"
-                    Content="Экспорт в Excel"/>
+                    Content="Экспорт в Excel"
+                    Command="{Binding ExportToExcel}"/>
         </Grid>
     </Grid>
 </UserControl>
