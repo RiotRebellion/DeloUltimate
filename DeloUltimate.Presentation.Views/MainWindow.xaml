@@ -13,6 +13,7 @@
         MinHeight="480" MinWidth="720"
         MaxHeight="{x:Static SystemParameters.MaximizedPrimaryScreenHeight}"
         WindowStyle="None"
+        Icon="Resources/fire.ico"
         Background="Transparent"
         AllowsTransparency="True">
     <WindowChrome.WindowChrome>
