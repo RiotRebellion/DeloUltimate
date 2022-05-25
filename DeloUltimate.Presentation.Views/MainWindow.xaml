@@ -26,7 +26,9 @@
         CornerRadius="20">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200pt"/>
+                <ColumnDefinition MinWidth="10pt" 
+                                  MaxWidth="200pt"/>
+                <ColumnDefinition Width="auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -37,7 +39,7 @@
             <Border
                 Background="#13161c"
                 CornerRadius="20"
-                Grid.ColumnSpan="2">
+                Grid.ColumnSpan="3">
                 <Grid MouseLeftButtonDown="Grid_OnMouseLeftButtonDown"
                       MouseMove="Grid_OnMouseMove"
                       MouseLeftButtonUp="Grid_OnMouseLeftButtonUp">
@@ -133,11 +135,19 @@
                     Style="{DynamicResource MenuButtonTheme}"
                     Command="{Binding ShowAccountActivitiesView}"/>
             </StackPanel>
+            <!--GridSplitter-->
+            <GridSplitter Grid.Column="1"
+                          Grid.Row="1"
+                          Grid.RowSpan="2"
+                          Width="2"
+                          HorizontalAlignment="Center" 
+                          VerticalAlignment="Stretch" 
+                          Background="#313847"/>
             <!--MenuButtonPanel-->
             <ContentControl
                 Grid.RowSpan="2"
                 Grid.Row="1"
-                Grid.Column="1"
+                Grid.Column="2"
                 Content="{Binding CurrentViewModel}">
                 <ContentControl.Resources>
                     <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
