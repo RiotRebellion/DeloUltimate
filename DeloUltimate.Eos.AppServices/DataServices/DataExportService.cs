@@ -92,12 +92,16 @@ namespace DeloUltimate.Eos.AppServices.DataServices
             for (int i = 1; i <= maxColumn; i++)
                 ((Excel.Range)worksheet.Columns[i]).AutoFit();
 
+            if (Directory.Exists("data/") == false)
+                Directory.CreateDirectory("data/");
+
             //Сохраняем отчет
             string fileName = $"{attribute.Name}_{DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")}";
-            string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), fileName);
+            string filePath = Environment.CurrentDirectory + "\\" + $"data\\{fileName}";
 
+            
             workbook.Saved = true;
-            workbook.SaveAs(fileName);
+            workbook.SaveAs(filePath);
             workbook.Close(false);
             excelApp.Quit();
 
